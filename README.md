@@ -1,0 +1,40 @@
+# ψ (psi)
+
+A method-chain language native to wasm. **Status: design draft — no implementation yet.**
+
+Design document: [docs/design.md](docs/design.md) (written in Chinese).
+
+Core proposition: the whole language compresses to two rules — a call is a step chain of
+*receiver + name + the arity the declaration states*, and a type is *data shape + a set of
+trait labels* with no inheritance chain. Pipes, infix operators and modules are notations of
+those two rules, not separate mechanisms. Methods are never values and functions only exist
+as blocks, so there is no currying.
+
+One artifact, three hosts:
+
+- **Rust engine extension** — the host embeds a wasm runtime and instantiates the compiled
+  `.wasm` module; editing a script means recompiling and reinstantiating.
+- **Browser** — the same `.wasm`; JavaScript only supplies the imports.
+- **CLI** — `psi run script.psi`; the CLI is itself a wasm host.
+
+Hard constraints that follow from that:
+
+- The artifact is a standard wasm module (Wasm 3.0 GC types plus a few WASI imports) — not a
+  private bytecode, not a bundled runtime.
+- Compilation is whole-program and linear, no fixed point: script save lands in the edit loop.
+- The spec stays small enough for one person to read: no borrow checker, allocator, GC
+  implementation, linker, or package version solving.
+- The boundary with the host is bytes only: numeric values, linear memory, `externref`;
+  everything else is serialized.
+
+## Layout
+
+```
+docs/design.md    the design (single document until code exists)
+```
+
+## Name
+
+ψ (psi): ψυχή (breath, soul) and the quantum-mechanical amplitude — light, without body,
+but genuinely a thing in a field, matching the physics naming of the `~/world` family
+(aura, effector, gravity). On disk everything is ASCII: `psi`, `script.psi`.
