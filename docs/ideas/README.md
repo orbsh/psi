@@ -36,6 +36,7 @@
 - [18 独立具名函数](18-named-functions.md)
 - [19 尾块是普通实参](19-block-as-arg.md)
 - [1A 字母名中缀 / 反引号 / 声明式 fixity](1A-named-infix.md)
+- [75 Rust 表面语法 + 隐式区域](75-rust-surface-syntax.md)（另一套表面：`fn`、表达式块、`match`、自由函数）
 
 ### 声明与模块
 
@@ -71,7 +72,10 @@
   - [56b 禁止跨层反向引用：只比深度](56b-depth-check.md)
   - [56c 闭包与 async：move 或独立区域树](56c-closure-async-region.md)
   - [56d 小 GC 兜底：两套堆，零互指](56d-hybrid-gc.md)
+  - [56e 区域里的 Drop：清理链，不是逐值析构](56e-drop-under-arena.md)
+  - [56f 并发：每线程一棵区域树，任务靠 scope 借](56f-concurrency-region-tree.md)
 - [57 线性多遍，无不动点](57-linear-compile.md)
+  - [57a 没有逃逸分析：分配点与逃逸点都在语法里](57a-no-escape-analysis.md)
 - [58 全程序一个模块，没有链接器](58-whole-program.md)
 - [59 所有糖展开到同一个目标](59-single-expansion-target.md)
 
