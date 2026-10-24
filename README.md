@@ -30,8 +30,16 @@ Hard constraints that follow from that:
 ## Layout
 
 ```
-docs/design.md    the design (single document until code exists)
+docs/
+├── ideas/          一个想法一份文档（允许冲突，没有终态）
+├── reference/      语法总表与示例程序
+└── design.md       拆分前的长文，保留备查
+
+README.md
 ```
+
+Read [docs/README.md](docs/README.md) for the layout rule, or jump to
+[docs/ideas/README.md](docs/ideas/README.md) for the idea index.
 
 ## Name
 
