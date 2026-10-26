@@ -5,7 +5,7 @@
 
 **动机**：这是「演示格式」与「交付格式」的分界。任何符合 Wasm 3.0 的宿主都能直接实例化，不需要装 ψ 的运行时；产物能被其他工具链消费（`wasm-objdump`、bundler、CDN）。211B 的产物如果只能在自家运行时里跑，那是一个 showcase。
 
-**形态**：全程序一个 `.wasm`，导出 `main` 与 `@export` 标注的方法；导入是 WASI 的一小组（stdout/stderr、时钟、文件）加宿主自定义的 `externref` 接口。
+**形态**：全程序一个 `.wasm`，导出 `main` 与 `#[export]` 标注的方法；导入是 WASI 的一小组（stdout/stderr、时钟、文件）加宿主自定义的 `externref` 接口。
 
 **代价**：
 

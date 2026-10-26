@@ -22,6 +22,6 @@ xs.map {it.gcd 2}
 
 反过来看，如果语言的重心是无点风与高阶组合，这条代价可能比它带来的自由更便宜。
 
-**冲突**：[16](16-methods-are-not-values.md)（本想法通常连带要求方法可值）、[21](21-unified-dot-access.md)（点不再是唯一访问）、[29](29-data-first-levers.md)（硬杠杆里的「模块级只有声明」和软杠杆「禁函数」都指向反面）。
+**冲突**：[16](16-methods-are-not-values.md)（本想法通常连带要求方法可值）、[21](21-unified-dot-access.md)（点不再是唯一访问）、[29](29-data-first-levers.md)（硬杠杆里的「模块级只有声明」和软杠杆「禁函数」都指向反面）。表面这一侧已经落定：文件顶层可以写 `fn`，但语义上它是匿名模块对象的方法（[75](75-rust-surface-syntax.md)、[22](22-three-containers.md)），所以「不挂容器」这件事仍然没有发生——这条想法要说的是**语义**上的自由函数，不是表面上的 `fn`。
 
 **若改掉会动到**：[11](11-method-chain-primitive.md) 的「接收者必在链位置一」、[22](22-three-containers.md)（文件顶层不再是匿名 object）、名字解析顺序、[38](38-composition.md)。

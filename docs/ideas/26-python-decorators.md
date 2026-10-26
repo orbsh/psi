@@ -8,7 +8,7 @@
 **形态**（若采用）：
 
 ```
-@retry 3
+#[retry] 3
 @timed
 def fetch url: Text -> Result<Text, IoError> = ...
 
@@ -19,7 +19,7 @@ def fetch url: Text -> Result<Text, IoError> = ...
 
 - **方法必须可值**，于是 [16](16-methods-are-not-values.md) 与 [21](21-unified-dot-access.md) 都要动。包装后的值是一个函数，调用点必须知道它是函数还是方法，或者语言接受「点上是值也可能是调用」。
 - **性能与可预测性**：包一层就多一次间接调用；错误栈要穿过包装；编译期无法再假设「这个 def 就是一个函数」。
-- **属性消失**：包装后的值不是方法，`@export` 之类的导出、文档、arity 都要重新定义。
+- **属性消失**：包装后的值不是方法，`#[export]` 之类的导出、文档、arity 都要重新定义。
 
 **冲突**：[25](25-decorators-as-tags.md) 正面冲突。与 [17](17-currying.md) 同向（都要求函数是一等值）。
 

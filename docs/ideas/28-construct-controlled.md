@@ -10,7 +10,7 @@
 ```
 struct Email {
   let value: Text        # 模块私有可构造
-  @export def parse s: Text -> Result<Email, Text> = ...
+  #[export] def parse s: Text -> Result<Email, Text> = ...
 }
 
 Email { value: "x" }     # 其他模块：编译错误

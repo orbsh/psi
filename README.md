@@ -2,13 +2,20 @@
 
 A method-chain language native to wasm. **Status: design draft — no implementation yet.**
 
-Design document: [docs/design.md](docs/design.md) (written in Chinese).
+Design: [docs/ideas/](docs/ideas/README.md) — one document per idea, no verdicts (written in
+Chinese). Syntax shapes live in [docs/reference/syntax.md](docs/reference/syntax.md). The
+pre-split long draft stays at [docs/design.md](docs/design.md) as history.
 
-Core proposition: the whole language compresses to two rules — a call is a step chain of
-*receiver + name + the arity the declaration states*, and a type is *data shape + a set of
-trait labels* with no inheritance chain. Pipes, infix operators and modules are notations of
-those two rules, not separate mechanisms. Methods are never values and functions only exist
-as blocks, so there is no currying.
+Core proposition: the whole language compresses to two rules — a call is *receiver + name +
+the arguments the declaration states*, and a type is *data shape + a set of trait labels* with
+no inheritance chain. Pipes, infix operators and modules are notations of those two rules, not
+separate mechanisms. Methods are never values and functions only exist as closures, so there is
+no currying.
+
+Surface: Rust syntax (`fn`, `let mut`, parentheses and commas, `match`, `|x|`, `#[attr]`, `::`
+paths, `;` and expression blocks) over value semantics — no `&`, no `*`, no lifetimes, no borrow
+checker. Where Rust's surface fights fluency, fluency wins: the ordering of criteria is
+fluency > least surprise > mechanism count > token count, and *terseness is not a criterion*.
 
 One artifact, three hosts:
 

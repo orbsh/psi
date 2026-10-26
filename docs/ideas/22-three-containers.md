@@ -27,4 +27,4 @@ def main args: List<Text> -> Int = { ... }
 
 **冲突**：[18](18-named-functions.md) 若成立，顶层不再是 object，这条要被拆开。[24](24-namespace-tree.md) 是模块的另一种形态。
 
-**若改掉会动到**：[23](23-modules-as-values.md)、[25](25-decorators-as-tags.md)（`@export` 挂在模块方法上）、[63](63-value-semantics.md)（模块级 mut 是唯一状态位）。
+**若改掉会动到**：[23](23-modules-as-values.md)、[25](25-decorators-as-tags.md)（`#[export]` 挂在模块方法上）、[63](63-value-semantics.md)（模块级 mut 是唯一状态位）。
