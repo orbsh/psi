@@ -34,7 +34,7 @@
 - [13 符号名即运算符，首字定级](13-infix-by-spelling.md)（优先级表取 Rust 的，自定义符号按首字符挂档）
 - [14 不设管道运算符](14-no-pipe.md) / [15 管道运算符](15-pipe-operator.md)
 - [16 方法不是值，函数只有块](16-methods-are-not-values.md) / [17 自动柯里化](17-currying.md)
-- [18 独立具名函数](18-named-functions.md)（语义上的自由函数；表面已有顶层 `fn`）
+- [18 独立具名函数](18-named-functions.md)（名字来源是否多一条；表面已有顶层 `fn`）
 - [19 尾块是普通实参](19-block-as-arg.md)（候选：现在闭包写在括号里）
 - [1A 字母名中缀 / 反引号 / 声明式 fixity](1A-named-infix.md)
 - [75 Rust 表面语法](75-rust-surface-syntax.md)（用在：`fn`、`let mut`、括号逗号、`match`、`|x|`、`#[attr]`、`::`）

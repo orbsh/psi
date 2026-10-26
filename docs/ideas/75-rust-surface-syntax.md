@@ -56,7 +56,7 @@ fn main(args: List<Text>) -> Int {
 
 **1. 没有 `&`、`*`、生命周期、借用检查。** 值不可变（[63](63-value-semantics.md), [64](64-borrow-checker.md)），函数按值收、按值还；跨区域赋值等于拷贝（[56a](56a-region-param-passing.md), [56b](56b-depth-check.md)）。理由：Rust 的痛不在 `fn` 和 `match`，在 `&`/`&mut` 的选择与生命周期标记；这两样在值语义里没有作用对象，照抄只会抄来噪音。代价：Rust 读者第一次写 `&x` 会报错，且「零拷贝」不再随手可得——想让大数据不搬，只能靠区域约束让分配落在调用者的区域里。
 
-**2. 没有自由函数，但有顶层 `fn`。** `fn` 只能出现在某个容器里（`struct` / `impl` / `object` / `trait`）；文件本身是一个匿名 `object`（[22](22-three-containers.md), [23](23-modules-as-values.md)），所以文件顶层的 `fn` 在表面上与 Rust 的自由函数无法区分，语义上是那个模块对象的方法：模块内直接写 `label(c)`，模块外写 `Report::label(c)`。理由：表面零惊异，语义保住「一切调用都有接收者」（[11](11-method-chain-primitive.md)）。代价：`label(c)` 与 `x.label()` 是两种入口，读代码时仍需知道名字属于哪一类（[18](18-named-functions.md) 记的就是这笔账）。
+**2. 没有自由函数，但有顶层 `fn`。** `fn` 只能出现在某个容器里（`struct` / `impl` / `object` / `trait`）；文件本身是一个匿名 `object`（[22](22-three-containers.md), [23](23-modules-as-values.md)），所以文件顶层的 `fn` 在表面上与 Rust 的自由函数无法区分，语义上是那个模块对象的方法：模块内直接写 `label(c)`，模块外写 `Report::label(c)`。理由不是「保住一切调用都有接收者的语义」——那句是重述，不是约束：`f(a, b)` 读成 `M.f(a, b)` 对程序的含义没有任何改动，[29](29-data-first-levers.md) 也把它记成软杠杆。真实理由只有两条，都是机制数：名字只有一个来源（局部槽 → 容器方法 → 外层容器，[23](23-modules-as-values.md)），调用只有一个入口（[11](11-method-chain-primitive.md)）；表面零惊异是顺带的。代价：`label(c)` 与 `x.label()` 是两种入口，读代码时仍需知道名字属于哪一类（[18](18-named-functions.md) 记的就是这笔账）。
 
 **3. 字符串插值。** `"circle {c.radius}"`，不写 `format!`。理由：宏被成本模型否决（[27](27-macros.md)），而没有插值的字符串拼接会毁掉日志与错误信息这类最常见的写法。代价：`{}` 在 Rust 里交给 `format!` 的实参，这里直接捕获作用域内的名字与表达式——`{` 需要转义，且插值里的表达式不能跨行。
 
