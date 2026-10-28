@@ -14,7 +14,7 @@
 
 由此收敛出四条硬约束：
 
-- **产物必须是标准 wasm**（Wasm 3.0 的 GC 类型 + 少量 WASI 导入），不是私有字节码、不捆绑私有运行时。这条是 [编程语言选型](../../../.hermes/wiki/language-selection.md) 对 MoonBit 的核心批评所在：211B 的产物如果只能在自家运行时里跑，是演示格式，不是交付格式。
+- **产物必须是标准 wasm**（Wasm 3.0 的 GC 类型 + 少量 WASI 导入），不是私有字节码、不捆绑私有运行时。这条是 [编程语言选型](https://github.com/orbsh/wiki/blob/main/language-selection.md) 对 MoonBit 的核心批评所在：211B 的产物如果只能在自家运行时里跑，是演示格式，不是交付格式。
 - **编译必须全程序、线性、毫秒级**：脚本每次保存都要重来，编译时间直接落在编辑循环里。
 - **规格必须小到一个人能读完**：语言里不能有 borrow checker、allocator、GC 实现、链接器、包版本求解。
 - **与宿主的边界只能是字节**：跨 wasm 边界可用的只有数值、线性内存和 `externref`，其余一律序列化。
@@ -172,7 +172,7 @@ def area -> Float = ...       # 方法
 def scale k: Float -> Circle = ...   # 多参：写成多段
 ```
 
-- `def` 的返回类型用 `->`，参数类型跟在参数名后（[现代编程语言设计](../../../.hermes/wiki/modern-language-design.md) 已论证后置标注与推导顺序一致）。
+- `def` 的返回类型用 `->`，参数类型跟在参数名后（[现代编程语言设计](https://github.com/orbsh/wiki/blob/main/modern-language-design.md) 已论证后置标注与推导顺序一致）。
 - body 是单个表达式时写成 `= expr`；有 `let` 或多条语句时写成块 `= { … }`，块的值是最后一个表达式。
 - 容器体也是块：`{ }` 里换行分隔成员，与函数体用同一套花括号规则。缩进在 ψ 里不承载语义，只影响可读性，格式化器可以整篇重排。
 - 参数按出现顺序逐段声明，段的个数就是 arity；调用时按同一顺序给足。
@@ -211,7 +211,7 @@ object Geo {
 
 ### 模块即值
 
-`let Shapes = import "./shapes.psi"`。import 返回被导入文件的模块对象，类型位置上的 `Shapes.Circle` 是这个对象上的类型投影。于是命名空间不是树，是对象链：文件路径仍是树（寻址工具），但名字解析不依赖树（与 [现代编程语言设计](../../../.hermes/wiki/modern-language-design.md) 的立场一致——树降级为寻址，不再作为复用地基）。
+`let Shapes = import "./shapes.psi"`。import 返回被导入文件的模块对象，类型位置上的 `Shapes.Circle` 是这个对象上的类型投影。于是命名空间不是树，是对象链：文件路径仍是树（寻址工具），但名字解析不依赖树（与 [现代编程语言设计](https://github.com/orbsh/wiki/blob/main/modern-language-design.md) 的立场一致——树降级为寻址，不再作为复用地基）。
 
 名字解析顺序：局部槽 → 当前容器的 `self` 方法 → 外层容器。循环 import 是编译错误。
 
@@ -275,7 +275,7 @@ impl Area for Shape {     # 唯一附着动作
 
 ### trait 不引入派发顺序
 
-`trait A: B` 只表示「实现 A 的类型必须同时实现 B」的合取约束，不表示父类型。因此 ψ 没有 `super` 调用、没有 mixin、没有线性化——[现代编程语言设计](../../../.hermes/wiki/modern-language-design.md) 里 Scala 与 Rust 那条分岔在这里取 Rust 一侧，而且是加强版：连 `super` 的语法都不存在，行为冲突只能显式点名。
+`trait A: B` 只表示「实现 A 的类型必须同时实现 B」的合取约束，不表示父类型。因此 ψ 没有 `super` 调用、没有 mixin、没有线性化——[现代编程语言设计](https://github.com/orbsh/wiki/blob/main/modern-language-design.md) 里 Scala 与 Rust 那条分岔在这里取 Rust 一侧，而且是加强版：连 `super` 的语法都不存在，行为冲突只能显式点名。
 
 `impl` 是唯一挂载点，遵守 orphan rule（trait 或类型至少一个在本地），否则全程序编译也判不出该用哪份实现。
 
@@ -638,7 +638,7 @@ LLVM 的主要价值在优化（SSA、指令选择、寄存器分配、循环变
 
 不用 wasm-gc 就要在语言里自己实现分配器、GC、对象布局和逃逸分析——那三样东西恰恰是让「小」破产的源头。用 wasm-gc 后，ψ 的运行时接近零：一个固定长度的 glue（内存读出、字符串视图、宿主导入转发），其余全由宿主承担。
 
-代价明确：依赖宿主支持 GC 类型。GC 已进入 Wasm 3.0 标准（2025-09 完成），Chrome / Firefox 2023 年即默认开启，Safari 跟进较晚，Wasmtime 需要开 `gc` feature。老运行时与部分嵌入式 wasm 引擎跑不了——这正是 [Wasm 统一运行时](../../../.hermes/wiki/wasm-unified-runtime.md) 说的第二梯队依赖。
+代价明确：依赖宿主支持 GC 类型。GC 已进入 Wasm 3.0 标准（2025-09 完成），Chrome / Firefox 2023 年即默认开启，Safari 跟进较晚，Wasmtime 需要开 `gc` feature。老运行时与部分嵌入式 wasm 引擎跑不了——这正是 [Wasm 统一运行时](https://github.com/orbsh/wiki/blob/main/wasm-unified-runtime.md) 说的第二梯队依赖。
 
 ### 备选：Cranelift
 
@@ -747,8 +747,8 @@ Cranelift 有 wasm32 后端，技术上可以直接拿来做代码生成，也�
 
 ## 交叉引用
 
-- **[现代编程语言设计](../../../.hermes/wiki/modern-language-design.md)**：后置类型、表达式化、标签模型、复杂度守恒的来源；本文是这些原则在一个具体语言上的极端化落地。
-- **[Wasm 统一运行时](../../../.hermes/wiki/wasm-unified-runtime.md)**：后端复杂度下沉的理论位置；wasm-gc 是 ψ 的硬依赖。
-- **[编程语言选型](../../../.hermes/wiki/language-selection.md)**：MoonBit 的私有运行时批评，是「标准 wasm 产物」这条约束的出处。
-- **[嵌入式脚本语言选型](../../../.hermes/wiki/embedded-script-languages.md)**：Koto 的空格敏感被否，是本文把空白限定为「应用位置」而非「语义分隔」的直接原因。
-- **[适合 LLM 编写的编程语言](../../../.hermes/wiki/llm-language-selection.md)**：生成者视角的选型判据，与本文的人类侧设计判据分工。
+- **[现代编程语言设计](https://github.com/orbsh/wiki/blob/main/modern-language-design.md)**：后置类型、表达式化、标签模型、复杂度守恒的来源；本文是这些原则在一个具体语言上的极端化落地。
+- **[Wasm 统一运行时](https://github.com/orbsh/wiki/blob/main/wasm-unified-runtime.md)**：后端复杂度下沉的理论位置；wasm-gc 是 ψ 的硬依赖。
+- **[编程语言选型](https://github.com/orbsh/wiki/blob/main/language-selection.md)**：MoonBit 的私有运行时批评，是「标准 wasm 产物」这条约束的出处。
+- **[嵌入式脚本语言选型](https://github.com/orbsh/wiki/blob/main/embedded-script-languages.md)**：Koto 的空格敏感被否，是本文把空白限定为「应用位置」而非「语义分隔」的直接原因。
+- **[适合 LLM 编写的编程语言](https://github.com/orbsh/wiki/blob/main/llm-language-selection.md)**：生成者视角的选型判据，与本文的人类侧设计判据分工。
