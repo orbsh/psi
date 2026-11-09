@@ -1,7 +1,7 @@
 # Rust 表面语法
 
 **状态**：在用
-**一句话**：表面照抄 Rust——`fn`、`let mut`、括号逗号、`match`、`|x|`、`#[attr]`、`::` 路径、`;` 与表达式块——语义仍是值语义的方法链语言：没有 `&`、没有 `*`、没有生命周期、没有借用检查。
+**一句话**：表面照抄 Rust——`fn`、`let mut`、括号逗号、`match`、`|x|`、`@attr`、`::` 路径、`;` 与表达式块——语义仍是值语义的方法链语言：没有 `&`、没有 `*`、没有生命周期、没有借用检查。
 
 **动机**：语法是门面，但门面决定读起来像什么，也决定上手时要付几遍学费。Rust 的皮有一个具体的好处：读者对「内存与错误被认真对待」的预期是现成的，而 ψ 恰好不需要为此付代价（值不可变、无引用、无生命周期）。照抄换到的是零学习成本；离开它换到的是每天的顺手。两者在同一点上打架的地方按 [76](76-fluency-over-terseness.md) 裁决——流畅性第一，零惊异第二，简洁不在判据里。
 
@@ -45,7 +45,7 @@ fn main(args: List<Text>) -> Int {
 | 模式 | `match x { P => e, _ => e }`、`if let` | 臂用 `=>`、用逗号分隔 |
 | 闭包 | `|x| x * 2`、`|acc, x| { ... }` | 与 Rust 同形；`{}` 里多语句 |
 | 容器 | `struct` / `enum` / `trait` / `impl` / `dyn` | 名字与形状全同 Rust |
-| 属性 | `#[export]`、`#[deprecated("理由")]`、`#[test]`、`#[target("cli")]` | 取 Rust 的写法；[25](25-decorators-as-tags.md) 的「编译期标签、不生成代码」不变 |
+| 属性 | `@export`、`@deprecated("理由")`、`@test`、`@target("cli")` | 记法取 Python 装饰器，语义仍是 [25](25-decorators-as-tags.md) 的「编译期标签、不生成代码」 |
 | 注释 | `//`、`///` | 与 Rust 同 |
 | 错误传播 | `expr?` | 与 Rust 同 |
 | 循环 | `while c { }`、`for x in xs { }` | `for` 是 `.each` 的糖，见下 |
@@ -64,7 +64,7 @@ fn main(args: List<Text>) -> Int {
 
 **5. 零参不写括号。** `c.radius` 与 `c.area` 同形，`x.trim` 不加 `()`。理由：字段与零参方法在语义上是同一件事（[21](21-unified-dot-access.md), [16](16-methods-are-not-values.md)），如果写法上要区分，把字段改成计算方法就要改所有调用点——那正是 [21](21-unified-dot-access.md) 要消除的东西。两套写法还会违反 [76](76-fluency-over-terseness.md) 第 2 条。代价：Rust 读者会把 `c.area` 读成字段访问；`()` 在 ψ 里因此只表示「这次调用有实参」，读代码时要靠这一点重新建立手感。
 
-另外四处是 Rust 没有的东西，谈不上偏离：`object`（单例容器；`mod` 是文件而不是值，[22](22-three-containers.md)）、`import` 是表达式而不是声明（模块是值，[23](23-modules-as-values.md)）、`dyn` 之外没有动态派发的细节（[33](33-dict-passing.md)）、没有宏与 `unsafe`（[27](27-macros.md)）。
+另外四处是 Rust 没有的东西，谈不上偏离：`object`（单例容器；`mod` 是文件而不是值，[22](22-three-containers.md)）、`import` 是表达式而不是声明（模块是值，[23](23-modules-as-values.md)）、`dyn` 之外没有动态派发的细节（[33](33-dict-passing.md)）、没有 `unsafe`；宏的机制照过程宏、记法照 Python 装饰器（[27](27-macros.md)）。
 
 ## 表面与区域的关系
 
@@ -82,6 +82,6 @@ Rust 的皮会让人期待「编译器替我管生命周期」。这里没有那
 - **零参调用与名字同形**：`f` 是调用还是值，靠「函数只有闭包一种形态」这条语义分开（[16](16-methods-are-not-values.md), [18](18-named-functions.md)）——名字在值位置被读成一次零参调用，所以零参函数的返回值不能与同名绑定共存。
 - **`for` 是糖**：它展开成 `.each`，所以循环体内不能构造控制流之外的返回值（[59](59-single-expansion-target.md) 只认一个展开目标）。
 
-**冲突**：[12](12-arity-grouping.md)（不加括号 arity 分组）、[19](19-block-as-arg.md)（尾块站实参位）、[13](13-infix-by-spelling.md)（首字符挂档 vs Rust 的优先级表）、[18](18-named-functions.md)（函数不挂容器）、[21](21-unified-dot-access.md)（点只有一种读法，与 `::` 分工）、[71](71-kdl-surface-syntax.md)（KDL 当表面）。
+**冲突**：[12](12-arity-grouping.md)（不加括号 arity 分组）、[19](19-block-as-arg.md)（尾块站实参位）、[13](13-infix-by-spelling.md)（首字符挂档 vs Rust 的优先级表）、[18](18-named-functions.md)（函数不挂容器）、[21](21-unified-dot-access.md)（点只有一种读法，与 `::` 分工）、[71](71-kdl-surface-syntax.md)（KDL 当表面）、[81](81-scala-surface.md)（同一层皮的另一个答案：Scala 形、花括号、扩展方法）。
 
 **若改掉会动到**：语法总表的每一个示例、[11](11-method-chain-primitive.md) 的调用形态、[12](12-arity-grouping.md)、[13](13-infix-by-spelling.md) 的表、[19](19-block-as-arg.md)、[21](21-unified-dot-access.md) 的示例、[25](25-decorators-as-tags.md) 的记法、[42](42-path-segments.md) 的字面量形态、[56e](56e-drop-under-arena.md) 与 [56f](56f-concurrency-region-tree.md) 的示例、[66](66-iteration-protocol.md) 的 `for`。

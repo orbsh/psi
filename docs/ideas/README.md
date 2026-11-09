@@ -37,7 +37,7 @@
 - [18 独立具名函数](18-named-functions.md)（名字来源是否多一条；表面已有顶层 `fn`）
 - [19 尾块是普通实参](19-block-as-arg.md)（候选：现在闭包写在括号里）
 - [1A 字母名中缀 / 反引号 / 声明式 fixity](1A-named-infix.md)
-- [75 Rust 表面语法](75-rust-surface-syntax.md)（用在：`fn`、`let mut`、括号逗号、`match`、`|x|`、`#[attr]`、`::`）
+- [75 Rust 表面语法](75-rust-surface-syntax.md)（用在：`fn`、`let mut`、括号逗号、`match`、`|x|`、`@attr`、`::`） / [81 Scala 表面语法](81-scala-surface.md)（候选：`val`/`var`、`def ... = {}`、花括号、`for` 推导、`impl` 兼作扩展方法、声明点方差与显式种类 HKT）
 - [76 流畅性优先于简洁](76-fluency-over-terseness.md)（语法取舍的第一判据）
 - [80 注记一律后缀，因为删除只能影响后缀](80-position-order.md)（声明句的槽位次序）
 
@@ -47,7 +47,7 @@
 - [22 struct / object / 模块是同一构造](22-three-containers.md)
 - [23 模块是值，import 是绑定](23-modules-as-values.md) / [24 命名空间树](24-namespace-tree.md)
 - [25 装饰器是编译期标签](25-decorators-as-tags.md) / [26 Python 式装饰器](26-python-decorators.md)
-- [27 宏与编译期求值](27-macros.md)
+- [27 宏是语法层的函数](27-macros.md)（Python 装饰器记法，Tokens → Tokens，编译期跑在自带 VM 里）
 - [28 构造受控：字段默认模块私有](28-construct-controlled.md)
 - [29 数据先行的硬杠杆与软杠杆](29-data-first-levers.md)
 
