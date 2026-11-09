@@ -39,6 +39,7 @@
 - [1A 字母名中缀 / 反引号 / 声明式 fixity](1A-named-infix.md)
 - [75 Rust 表面语法](75-rust-surface-syntax.md)（用在：`fn`、`let mut`、括号逗号、`match`、`|x|`、`#[attr]`、`::`）
 - [76 流畅性优先于简洁](76-fluency-over-terseness.md)（语法取舍的第一判据）
+- [80 注记一律后缀，因为删除只能影响后缀](80-position-order.md)（声明句的槽位次序）
 
 ### 声明与模块
 
@@ -80,6 +81,8 @@
   - [57a 没有逃逸分析：分配点与逃逸点都在语法里](57a-no-escape-analysis.md)
 - [58 全程序一个模块，没有链接器](58-whole-program.md)
 - [59 所有糖展开到同一个目标](59-single-expansion-target.md)
+- [77 载体是自建字节码，由自带 VM 执行](77-bytecode-vm.md)（候选：现在是标准 wasm 模块）
+- [79 寄存器式指令，批量操作码由编译期选](79-batch-opcodes.md)（依赖 77）
 
 ### 运行时与宿主
 
@@ -97,6 +100,7 @@
 - [72 名字：ψ](72-name-psi.md)
 - [73 不是通用语言](73-not-general-purpose.md)
 - [74 非对称收益：砍能力面，换每次操作](74-asymmetric-payoff.md)
+- [78 宿主是游戏逻辑扩展：事件、条件、动作](78-game-logic-extension.md)
 
 ## 参考件
 
